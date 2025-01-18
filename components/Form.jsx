@@ -14,6 +14,32 @@ const Form = ({type,
         {type} Post
        </span>
       </h1>
+
+      <p className='desc text-left max-w-md'>
+      {type} and share amazing prompts with the world, and let your
+      imagination run wild with any AI-powered platform
+      </p>
+
+
+      <form 
+      onSubmit={handleSubmit}
+      className='mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism'
+      >
+        <label>
+          <span className='font-satoshi font-semibold text-base text-gray-700'>
+              Your AI Prompt
+          </span>
+        </label>
+
+        <textarea
+        value={post.propmt}
+        onChange={(e) => setPost({...post, prompt : e.target.value})}
+        placeholder='Write your prompt here'
+        required
+        className='form_textarea'
+        />
+
+      </form>
     </section>
     </>
   )
