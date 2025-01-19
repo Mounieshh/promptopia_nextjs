@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import PromptCard from "./PromptCard"
 import { useEffect, useState } from "react"
