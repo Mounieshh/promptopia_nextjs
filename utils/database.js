@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-let isConnected = false; 
+let isConnected = false;
 
 export const connectToDB = async () => {
   if (isConnected) {
@@ -9,10 +9,7 @@ export const connectToDB = async () => {
   }
 
   try {
-    const db = await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    const db = await mongoose.connect(process.env.MONGO_URI);
 
     isConnected = true;
     console.log(`Connected to MongoDB: ${db.connection.host}`);
