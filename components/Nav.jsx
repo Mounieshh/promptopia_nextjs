@@ -6,18 +6,45 @@ import { signIn, signOut, useSession, getProviders } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 
 const Nav = () => {
- const {data : session} = useSession();
-
+  const {data: session} = useSession();
+  
   const [providers, setProviders] = useState(null);
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchProviders = async () => {
-      const response = await getProviders();
-      setProviders(response);
+      try {
+        const response = await getProviders();
+        setProviders(response);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchProviders();
   }, []);
+
+  const renderAuthButtons = () => {
+    if (isLoading) {
+      return <div className="loading">Loading...</div>;
+    }
+    
+    return (
+      <>
+        {providers &&
+          Object.values(providers).map((provider) => (
+            <button
+              type='button'
+              key={provider.name}
+              onClick={() => signIn(provider.id)}
+              className='black_btn'
+            >
+              Sign in
+            </button>
+          ))}
+      </>
+    );
+  };
 
   return (
     <>
@@ -33,8 +60,6 @@ const Nav = () => {
           <p className='logo_text'>Promptopia</p>
         </Link>
 
-
-        {/* Desktop Screens */}
         <div className='sm:flex hidden'>
           {session?.user ? (
             <div className='flex gap-3 md:gap-5'>
@@ -60,79 +85,44 @@ const Nav = () => {
                 />
               </Link>
             </div>
-          ) : (
-            <>
-              {providers &&
-                Object.values(providers).map((provider) => (
-                  <button
-                    type='button'
-                    key={provider.name}
-                    onClick={() => {
-                      signIn(provider.id);
-                    }}
-                    className='black_btn'
-                  >
-                    Sign in
-                  </button>
-                ))}
-            </>
-          )}
+          ) : renderAuthButtons()}
         </div>
 
-
-        {/* Small Screen Sizes */}
         <div className='sm:hidden flex relative'>
           {session?.user ? (
             <div className='flex'>
               <Image
-              src={session?.user.image}
-              width={37}
-              height={37}
-              alt='Profile'
-              onClick={() => setToggle((prev) => !prev)}
+                src={session?.user.image}
+                width={37}
+                height={37}
+                alt='Profile'
+                onClick={() => setToggle((prev) => !prev)}
               />
 
               {toggle && (
                 <div className='dropdown'>
                   <Link href='/profile'
-                  className='dropdown_link'
-                  onClick={() => setToggle(false)}
+                    className='dropdown_link'
+                    onClick={() => setToggle(false)}
                   >
-                  My Profile
+                    My Profile
                   </Link>
                   <Link href='/create-prompt'
-                  className='dropdown_link'
-                  onClick={() => setToggle(false)}
+                    className='dropdown_link'
+                    onClick={() => setToggle(false)}
                   >
-                  Create Prompt
+                    Create Prompt
                   </Link>
                   <button type="button"
-                  className='black_btn mt-5 w-full'
-
-                  onClick={() => {setToggle(false); signOut();}}
+                    className='black_btn mt-5 w-full'
+                    onClick={() => {setToggle(false); signOut();}}
                   >
                     SignOut
                   </button>
                 </div>
               )}
             </div>
-          ) : (
-            <>
-            {providers &&
-                Object.values(providers).map((provider) => (
-                  <button
-                    type='button'
-                    key={provider.name}
-                    onClick={() => {
-                      signIn(provider.id);
-                    }}
-                    className='black_btn'
-                  >
-                    Sign in
-                  </button>
-                ))}
-            </>
-          )}
+          ) : renderAuthButtons()}
         </div>
       </nav>
     </>
