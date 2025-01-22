@@ -26,7 +26,7 @@ const Nav = () => {
 
   const renderAuthButtons = () => {
     if (isLoading) {
-      return <div className="loading">Loading...</div>;
+      return <div className="loading bg-gray-400 animate-pulse">Loading...</div>;
     }
     
     return (
