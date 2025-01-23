@@ -56,7 +56,7 @@ const ProfilePage = () => {
     <>
       <Profile
         name="My"
-        desc="Personalized Profile"
+        desc="Profile Section : Allows you to Edit and Delete Posts"
         data={posts}
         handleDelete={handleDelete}
         handleEdit={handleEdit}

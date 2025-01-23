@@ -37,6 +37,7 @@ const Feed = () => {
     fetchPosts()
   }, [])
 
+  //Search Functionality ??
   useEffect(() => {
     const filteredPosts = posts.filter(post => 
       post.creator.username.toLowerCase().includes(searchText.toLowerCase()) || 

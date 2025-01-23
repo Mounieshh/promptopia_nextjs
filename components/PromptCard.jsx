@@ -10,6 +10,8 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
   const pathName = usePathname();
   const [copied, setCopied] = useState("");
 
+
+  //Copy Functionality
   const handleCopy = () => {
     setCopied(post.prompt);
     navigator.clipboard.writeText(post.prompt);

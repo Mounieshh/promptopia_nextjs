@@ -5,11 +5,11 @@ const Profile = ({name, desc ,data, handleEdit, handleDelete}) => {
     <>
     <section className="w-full">
       <h1 className='head-text text-left'>
-        <span className='blue_gradient'>
+        <span className='blue_gradient text-3xl font-bold'>
           {name} Profile
         </span>
       </h1>
-      <p className='desc text-left'>
+      <p className='desc text-left font-semibold'>
           {desc}
       </p>
 
