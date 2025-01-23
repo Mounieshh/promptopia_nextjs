@@ -44,10 +44,11 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
             width={13}
             height={13}
             alt="copy_icon"
+            className="inline-block rounded-md"
           />
         </div>
       </div>
-      <p className="my-4 font-satoshi text-sm text-gray-500">{post.prompt}</p>
+      <p className="my-4 font-satoshi text-sm text-gray-500 ">{post.prompt}</p>
       <p
         className="my-2 font-semibold text-sm blue_gradient cursor-pointer"
         onClick={() => handleTagClick && handleTagClick(post.tag)}
